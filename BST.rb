@@ -1,13 +1,13 @@
 require_relative 'TreeNode'
-$path_tracer = []
+
 class BST
   attr_accessor :root_node
+
   def initialize
     @root_node=root_node
   end
 
   def insert_node(data_part)
-    $path_tracer.push(data_part)
     if @root_node.nil?
       @root_node=TreeNode.new(data_part)
     else
@@ -67,35 +67,35 @@ class BST
   end
 
   def find_maximum
-    n = @root_node
-    while n.right_child != nil
-      n = n.right_child
+    max_node = @root_node
+    while !max_node.right_child.nil?
+      max_node = max_node.right_child
     end
-    puts n.data_part
+    puts max_node.data_part
   end
 
   def find_minimum
-    n=@root_node
-    while n.left_child != nil
-      n = n.left_child
+    min_node = @root_node
+    while !min_node.left_child.nil?
+      min_node = min_node.left_child
     end
-    puts n.data_part
+    puts min_node.data_part
   end
 
   def search_element(s_element)
-    n=@root_node
+    search_node=@root_node
     puts @root_node.data_part
-    if n != nil and n.data_part == s_element
+    if !search_node.nil? and search_node.data_part == s_element
       puts "Element exists"
       return
     end
-    while n != nil
-      if n.data_part < s_element
-        n = n.right_child
-      elsif  n.data_part > s_element
-        n = n.left_child
+    while !search_node.nil?
+      if search_node.data_part < s_element
+        search_node = search_node.right_child
+      elsif  search_node.data_part > s_element
+        search_node = search_node.left_child
       end
-      if n.data_part == s_element
+      if search_node.data_part == s_element
         puts "Element exists"
         return
       end
@@ -107,15 +107,14 @@ class BST
     traverse_queue=Queue.new
     traverse_queue.push(@root_node)
     while !traverse_queue.empty?
-      r = traverse_queue.pop
-      if !r.nil?
-        puts r.data_part
-        if !r.left_child.nil?
-         traverse_queue.push(r.left_child)
+      current_node = traverse_queue.pop
+      if !current_node.nil?
+        puts current_node.data_part
+        if !current_node.left_child.nil?
+         traverse_queue.push(current_node.left_child)
         end
-
-        if !r.right_child.nil?
-         traverse_queue.push(r.right_child)
+        if !current_node.right_child.nil?
+         traverse_queue.push(current_node.right_child)
         end
       end
     end
@@ -156,7 +155,6 @@ class BST
       successor_node = get_successor(root_node)
     root_node.data_part = successor_node.data_part
     root_node.right_child = delete_node(root_node.right_child,successor_node.data_part)
-
     end
     return root_node
   end 
@@ -168,41 +166,46 @@ class BST
     return root_node
   end
 end
-
-b = []
 create_bst = BST.new()
-
-
-
-
 while true
   puts "1.Insert\n2.Inorder\n3.Preorder\n4.Postorder\n5.Levelorder\n6.Search\n7.Max_Element\n"
-  puts "8.Min_Element\n 9.Delete\n 10.Print_All_Paths\n 11.Quit\n"
-  case
+  puts "8.Min_Element\n9.Delete\n10.Print_All_Paths\n11.Quit\n"
+  loop_var = gets.chomp.to_i
+  case loop_var
   when 1
-    a = gets.chomp.to_i
-    create_bst.insert_node(a)
+    new_element = gets.chomp.to_i
+    create_bst.insert_node(new_element)
+    puts "---"
   when 2
-    create_bst.inorder_traversal(create_bst.root_node)
+    create_bst.inorder_traversal
+    puts "---"
   when 3
-    create_bst.preorder_traversal(create_bst.root_node)
+    create_bst.preorder_traversal
+    puts "---"
   when 4
-    create_bst.postorder_traversal(create_bst.root_node)
+    create_bst.postorder_traversal
+    puts "---"
   when 5
     create_bst.levelorder_traversal
+    puts "---"
   when 6
     puts "Enter the value"
-    a=gets.chomp.to_i
-    create_bst.search_element(a)
+    search_element = gets.chomp.to_i
+    create_bst.search_element(search_element)
+    puts "---"
   when 7
     create_bst.find_maximum
+    puts "---"
   when 8
     create_bst.find_minimum
+    puts "---"
   when 9
-    a=gets.chomp.to_i
-    create_bst.delete_node(create_bst.root_node,a)
+    del_node = gets.chomp.to_i
+    create_bst.delete_node(create_bst.root_node,del_node)
+    puts "---"
   when 10
     create_bst.print_paths(create_bst.root_node)
+    puts "---"
   when 11
     break
   end
