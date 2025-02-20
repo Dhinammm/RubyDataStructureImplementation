@@ -131,6 +131,7 @@ while true
   when 3
     puts "Enter the value"
     data = gets.chomp.to_i
+    puts "Enter the position"
     pos = gets.chomp.to_i
     l1.insert_position(data,pos)
   when 4
@@ -144,6 +145,7 @@ while true
   when 8 
     l1.display_reverse
   when 9
+    puts "Enter the element"
     b=gets.chomp.to_i
     l1.search_element(b)
   when 10
