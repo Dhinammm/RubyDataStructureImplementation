@@ -1,6 +1,7 @@
 require_relative 'Node'
 
 class LinkedList
+  attr_accessor :head_node, :tail_node
   def initialize
     @head_node = nil
     @tail_node = nil
@@ -21,7 +22,7 @@ class LinkedList
     new_node = Node.new(data_part)
     if @head_node.nil?
       @head_node = new_node
-      @tail_node = new_node
+      @tail_node = @head_node
     else
       new_node.next_pointer = @head_node
       @head_node.prev_pointer = new_node
@@ -32,7 +33,7 @@ class LinkedList
   def insert_position(data_part,position)
     current_node = @head_node
     if position == 1
-      if !@head_node.nil?
+      if !head_node.nil?
         new_node = Node.new(data_part)
         new_node.next_pointer = @head_node 
         @head_node.prev_pointer = new_node
@@ -78,9 +79,9 @@ class LinkedList
     end
   end
 
-  def delete_tail
+  def delete_end
     if @tail_node.nil?
-      'Do nothing'
+      puts 'hi'
     else
       @tail_node = @tail_node.prev_pointer
       @tail_node.next_pointer = nil
@@ -116,7 +117,7 @@ class LinkedList
   end
 
   def search_element(search_data)
-    search_node=@head_node
+    search_node = @head_node
     while !search_node.nil?
       if search_node.data_part == search_data
         puts "Element present in the list"
@@ -138,27 +139,43 @@ loop do
   when 1
     puts "Enter the value"
     data = gets.chomp.to_i
+    puts "--------------"
     list_object.insert_head(data)
+    puts "--------------"
   when 2
     puts "Enter the value"
     data = gets.chomp.to_i
-    list_object.insert_tail(data)
+    puts "--------------"
+    list_object.insert_end(data)
+    puts "--------------"
   when 3
     puts "Enter the value"
     data = gets.chomp.to_i
     puts "Enter the position"
     pos = gets.chomp.to_i
+    puts "--------------"
     list_object.insert_position(data,pos)
+    puts "--------------"
   when 4
+    puts "--------------"
     list_object.delete_head
+    puts "--------------"
   when 5
-    list_object.delete_tail
+    puts "--------------"
+    list_object.delete_end
+    puts "--------------"
   when 6
+    puts "--------------"
     list_object.display
+    puts "--------------"
   when 7
+    puts "--------------"
     list_object.reverse_list
+    puts "--------------"
   when 8 
+    puts "--------------"
     list_object.display_reverse
+    puts "--------------"
   when 9
     puts "Enter the element"
     search_object = gets.chomp.to_i
