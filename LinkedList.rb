@@ -69,10 +69,12 @@ class LinkedList
 
   def delete_head
     if @head_node.nil?
-      'do nothing'
+      puts "There is no node to delete"
     else
       @head_node = @head_node.next_pointer
+      if !@head_node.nil?
       @head_node.prev_pointer = nil
+      end
     end
   end
 
@@ -127,40 +129,40 @@ class LinkedList
 
 end
 
-l1=LinkedList.new()
-while true
-  puts "1.Insert_AtBeginning 2.Insert_AtEnd 3.Insert_AtPos 4.Delete_Beginning 5.Delete_AtEnd 
-        6.Display 7.Reverse_list 8.display_reverse 9.Search 10.Exit"
-  a = gets.chomp.to_i
-  case a
+list_object = LinkedList.new()
+loop do
+  puts "1.Insert_AtBeginning\n2.Insert_AtEnd\n3.Insert_AtPos\n4.Delete_Beginning\n5.Delete_AtEnd\n"
+  puts "6.Display\n7.Reverse_list\n8.display_reverse\n9.Search\n10.Exit\n"
+  choice  = gets.chomp.to_i
+  case choice
   when 1
     puts "Enter the value"
     data = gets.chomp.to_i
-    l1.insert_head(data)
+    list_object.insert_head(data)
   when 2
     puts "Enter the value"
     data = gets.chomp.to_i
-    l1.insert_tail(data)
+    list_object.insert_tail(data)
   when 3
     puts "Enter the value"
     data = gets.chomp.to_i
     puts "Enter the position"
     pos = gets.chomp.to_i
-    l1.insert_position(data,pos)
+    list_object.insert_position(data,pos)
   when 4
-    l1.delete_head
+    list_object.delete_head
   when 5
-    l1.delete_tail
+    list_object.delete_tail
   when 6
-    l1.display
+    list_object.display
   when 7
-    l1.reverse_list
+    list_object.reverse_list
   when 8 
-    l1.display_reverse
+    list_object.display_reverse
   when 9
     puts "Enter the element"
-    b=gets.chomp.to_i
-    l1.search_element(b)
+    search_object = gets.chomp.to_i
+    list_object.search_element(search_object)
   when 10
     break
   else
