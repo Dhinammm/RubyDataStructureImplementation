@@ -1,40 +1,45 @@
 require_relative 'TreeNode'
-
+require 'set'
+$file_handler = Set.new
 class BST
   attr_accessor :root_node
 
   def initialize
-    @root_node=root_node
+    @root_node = root_node
   end
 
   def insert_node(data_part)
     if @root_node.nil?
-      @root_node=TreeNode.new(data_part)
+      @root_node = TreeNode.new(data_part)
     else
-      current_node=@root_node
-      while true
+      current_node = @root_node
+      loop do
         if current_node.nil?
-          current_node=TreeNode.new(data_part)
+          current_node = TreeNode.new(data_part)
+          $file_handler.add(data_part)
           break
         end
-        if current_node.data_part<data_part
+        if current_node.data_part < data_part
           if current_node.right_child.nil?
-           current_node.right_child=TreeNode.new(data_part)
+           current_node.right_child = TreeNode.new(data_part)
+           $file_handler.add(data_part)
             break
           else
-          current_node=current_node.right_child
+          current_node = current_node.right_child
           next
           end
         end
-        if current_node.data_part>data_part
+        if current_node.data_part > data_part
           if current_node.left_child.nil?
-            current_node.left_child=TreeNode.new(data_part)
+            current_node.left_child = TreeNode.new(data_part)
+            $file_handler.add(data_part)
             break
           else
-          current_node=current_node.left_child
+          current_node = current_node.left_child
           next
           end
         end
+      break
       end
     end
   end
@@ -120,7 +125,7 @@ class BST
     end
   end    
 
-  def print_paths(root_node ,track_path = [])
+  def print_paths(root_node, track_path = [])
     duplicate = track_path.dup
     if root_node.nil?
       return
@@ -154,20 +159,29 @@ class BST
       end
       successor_node = get_successor(root_node)
     root_node.data_part = successor_node.data_part
-    root_node.right_child = delete_node(root_node.right_child,successor_node.data_part)
+    root_node.right_child = delete_node(root_node.right_child, successor_node.data_part)
     end
     return root_node
   end 
   def get_successor(root_node)
     root_node = root_node.right_child
-    while root_node != nil and !root_node.left_child.nil?
+    while !root_node.nil? and !root_node.left_child.nil?
       root_node = root_node.left_child
     end
     return root_node
   end
 end
 create_bst = BST.new()
-while true
+if  File.exist?("BST.txt")
+  open_file = File.open("BST.txt","r+")
+  open_file.each_line do |iterator|
+    create_bst.insert_node(iterator.to_i)
+  end
+else 
+ open_file  =  File.new("BST.txt","w+")
+end
+
+loop do
   puts "1.Insert\n2.Inorder\n3.Preorder\n4.Postorder\n5.Levelorder\n6.Search\n7.Max_Element\n"
   puts "8.Min_Element\n9.Delete\n10.Print_All_Paths\n11.Quit\n"
   loop_var = gets.chomp.to_i
@@ -211,3 +225,8 @@ while true
   end
 end
 
+
+  $file_handler.each do|iterator|
+    open_file.syswrite(iterator.to_s + "\n")
+  end
+  open_file.close()
