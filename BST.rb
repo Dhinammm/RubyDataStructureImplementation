@@ -22,12 +22,12 @@ class BST
         end
         if current_node.data_part < data_part
           if current_node.right_child.nil?
-           current_node.right_child = TreeNode.new(data_part)
-           $file_handler.add(data_part)
-           break
+            current_node.right_child = TreeNode.new(data_part)
+            $file_handler.add(data_part)
+            break
           else
-          current_node = current_node.right_child
-          next
+            current_node = current_node.right_child
+            next
           end
         end
         if current_node.data > data_part
