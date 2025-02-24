@@ -20,7 +20,7 @@ class BST
           $file_handler.add(data_part)
           break
         end
-        if current_node.data_part < data_part
+        if current_node.data < data_part
           if current_node.right_child.nil?
             current_node.right_child = TreeNode.new(data_part)
             $file_handler.add(data_part)
