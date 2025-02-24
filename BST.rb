@@ -36,8 +36,8 @@ class BST
             $file_handler.add(data_part)
             break
           else
-          current_node = current_node.left_child
-          next
+            current_node = current_node.left_child
+            next
           end
         end
       break
