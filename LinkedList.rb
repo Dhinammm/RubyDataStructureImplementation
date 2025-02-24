@@ -2,6 +2,7 @@ require_relative 'Node'
 
 class LinkedList
   attr_accessor :head_node, :tail_node
+
   def initialize
     @head_node = nil
     @tail_node = nil
@@ -44,27 +45,29 @@ class LinkedList
         return
       end
     end
+
     while position != 1
       if current_node.nil?
         puts "There does not exist a position you mentioned"
         return
       else
-      current_node = current_node.next_pointer
-      position -= 1
+        current_node = current_node.next_pointer
+        position -= 1
       end
     end
+
     new_node = Node.new(data_part)
     new_node.next_pointer = current_node
     new_node.prev_pointer = current_node.prev_pointer
     if new_node.prev_pointer.nil?
       'Do nothing'
     else
-    new_node.prev_pointer.next_pointer = new_node
+      new_node.prev_pointer.next_pointer = new_node
     end
     if current_node.nil?
       'Do nothing'
     else
-    current_node.prev_pointer = new_node
+      current_node.prev_pointer = new_node
     end
   end
 
@@ -74,7 +77,7 @@ class LinkedList
     else
       @head_node = @head_node.next_pointer
       if !@head_node.nil?
-      @head_node.prev_pointer = nil
+        @head_node.prev_pointer = nil
       end
     end
   end
@@ -127,9 +130,7 @@ class LinkedList
     end
     puts "Element Not found"
   end
-
 end
-
 list_object = LinkedList.new()
 loop do
   puts "1.Insert_AtBeginning\n2.Insert_AtEnd\n3.Insert_AtPos\n4.Delete_Beginning\n5.Delete_AtEnd\n"
