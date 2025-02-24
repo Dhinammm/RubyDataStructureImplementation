@@ -59,26 +59,16 @@ def linked_list(list_object)
      end
    end
 end
-flag = 0
-file_open = nil
-list_object = LinkedList.new()
-create_bst = BST.new()
-loop do
-  puts 'Which Data structure you like to work with'
-  puts '1.Linked List 2. Binary Search Tree 3.Quit'
-  choice = gets.chomp.to_i
-   case choice
-   when 1
-     linked_list(list_object)
-   when 2
-     if flag == 0
+
+def binary_searchtree(flag, bst_obj, file_open)
+  if flag == 0
        puts "Enter the file name you want to work with"
        file_open = gets
      end
      if  File.exist?(file_open)
        open_file = File.open(file_open,"r+")
        open_file.each_line do |iterator|
-       create_bst.insert_node(iterator.to_i)
+       bst_obj.insert_node(iterator.to_i)
        end
      else
        open_file  =  File.new(file_open,"w+")
@@ -91,45 +81,59 @@ loop do
        case loop_var
        when 1
          new_element = gets.chomp.to_i
-         create_bst.insert_node(new_element)
+         bst_obj.insert_node(new_element)
          puts "---"
        when 2
-         create_bst.inorder_traversal
+         bst_obj.inorder_traversal
          puts "---"
        when 3
-         create_bst.preorder_traversal
+         bst_obj.preorder_traversal
          puts "---"
        when 4
-         create_bst.postorder_traversal
+         bst_obj.postorder_traversal
          puts "---"
        when 5
-         create_bst.levelorder_traversal
+         bst_obj.levelorder_traversal
          puts "---"
        when 6
          puts "Enter the value"
          search_element = gets.chomp.to_i
-         create_bst.search_element(search_element)
-         puts "---"
+         bst_obj.search_element(search_element)
        when 7
-         create_bst.find_maximum
+         bst_obj.find_maximum
          puts "---"
        when 8
-         create_bst.find_minimum
+         bst_obj.find_minimum
          puts "---"
        when 9
          del_node = gets.chomp.to_i
-         create_bst.delete_node(create_bst.root_node,del_node)
+         bst_obj.delete_node(create_bst.root_node,del_node)
          puts "---"
        when 10
-         create_bst.print_paths(create_bst.root_node)
+         bst_obj.print_paths(create_bst.root_node)
          puts "---"
        when 11
         $file_handler.each do|iterator|
         open_file.syswrite(iterator.to_s + "\n")
         end
-        break            
+        break
        end
-     end 
+     end
+end
+
+flag = 0
+file_open = nil
+list_object = LinkedList.new()
+bst_obj = BST.new()
+loop do
+  puts 'Which Data structure you like to work with'
+  puts '1.Linked List 2. Binary Search Tree 3.Quit'
+  choice = gets.chomp.to_i
+   case choice
+   when 1
+     linked_list(list_object)
+   when 2
+     binary_searchtree(flag, bst_obj, file_open)
    when 3
      break
    else 
