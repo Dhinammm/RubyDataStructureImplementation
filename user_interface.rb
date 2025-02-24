@@ -1,5 +1,64 @@
 require_relative 'BST.rb'
 require_relative 'LinkedList.rb'
+
+def linked_list(list_object)
+   loop do
+     puts "1.Insert_AtBeginning\n2.Insert_AtEnd\n3.Insert_AtPos\n4.Delete_Beginning\n5.Delete_AtEnd\n"
+     puts "6.Display\n7.Reverse_list\n8.display_reverse\n9.Search\n10.Exit\n"
+     choice  = gets.chomp.to_i
+     flag = 1
+     case choice
+     when 1
+       puts "Enter the value"
+       data = gets.chomp.to_i
+       puts "--------------"
+       list_object.insert_head(data)
+       puts "--------------"
+     when 2
+       puts "Enter the value"
+       data = gets.chomp.to_i
+       puts "--------------"
+       list_object.insert_end(data)
+       puts "--------------"
+     when 3
+       puts "Enter the value"
+       data = gets.chomp.to_i
+       puts "Enter the position"
+       pos = gets.chomp.to_i
+       puts "--------------"
+       list_object.insert_position(data,pos)
+       puts "--------------"
+     when 4
+       puts "--------------"
+       list_object.delete_head
+       puts "--------------"
+     when 5
+       puts "--------------"
+       list_object.delete_end
+       puts "--------------"
+     when 6
+       puts "--------------"
+       list_object.display
+       puts "--------------"
+     when 7
+       puts "--------------"
+       list_object.reverse_list
+       puts "--------------"
+     when 8
+       puts "--------------"
+       list_object.display_reverse
+       puts "--------------"
+     when 9
+       puts "Enter the element"
+       search_object = gets.chomp.to_i
+       list_object.search_element(search_object)
+     when 10
+       break
+     else
+       puts "Please Enter a valid option"
+     end
+   end
+end
 flag = 0
 file_open = nil
 list_object = LinkedList.new()
@@ -10,62 +69,7 @@ loop do
   choice = gets.chomp.to_i
    case choice
    when 1
-     loop do
-       puts "1.Insert_AtBeginning\n2.Insert_AtEnd\n3.Insert_AtPos\n4.Delete_Beginning\n5.Delete_AtEnd\n"
-       puts "6.Display\n7.Reverse_list\n8.display_reverse\n9.Search\n10.Exit\n"
-       choice  = gets.chomp.to_i
-       flag = 1
-       case choice
-       when 1
-         puts "Enter the value"
-         data = gets.chomp.to_i
-         puts "--------------"
-         list_object.insert_head(data)
-         puts "--------------"
-       when 2
-         puts "Enter the value"
-         data = gets.chomp.to_i
-         puts "--------------"
-         list_object.insert_end(data)
-         puts "--------------"
-      when 3
-         puts "Enter the value"
-         data = gets.chomp.to_i
-         puts "Enter the position"
-         pos = gets.chomp.to_i
-         puts "--------------"
-         list_object.insert_position(data,pos)
-         puts "--------------"
-      when 4
-         puts "--------------"
-         list_object.delete_head
-         puts "--------------"
-      when 5
-         puts "--------------"
-         list_object.delete_end
-         puts "--------------"
-      when 6
-         puts "--------------"
-         list_object.display
-         puts "--------------"
-      when 7
-         puts "--------------"
-         list_object.reverse_list
-         puts "--------------"
-      when 8
-         puts "--------------"
-         list_object.display_reverse
-         puts "--------------"
-      when 9
-         puts "Enter the element"
-         search_object = gets.chomp.to_i
-         list_object.search_element(search_object)
-      when 10
-         break
-      else
-         puts "Please Enter a valid option"
-      end
-    end
+     linked_list(list_object)
    when 2
      if flag == 0
        puts "Enter the file name you want to work with"
