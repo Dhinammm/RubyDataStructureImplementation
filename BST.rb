@@ -9,31 +9,31 @@ class BST
     @root_node = root_node
   end
 
-  def insert_node(data_part)
+  def insert_node(data)
     if @root_node.nil?
-      @root_node = Node.new(data_part)
+      @root_node = Node.new(data)
     else
       current_node = @root_node
       loop do
         if current_node.nil?
-          current_node = Node.new(data_part)
-          $file_handler.add(data_part)
+          current_node = Node.new(data)
+          $file_handler.add(data)
           break
         end
-        if current_node.data < data_part
+        if current_node.data < data
           if current_node.next_pointer.nil?
-            current_node.next_pointer = Node.new(data_part)
-            $file_handler.add(data_part)
+            current_node.next_pointer = Node.new(data)
+            $file_handler.add(data)
             break
           else
             current_node = current_node.next_pointer
             next
           end
         end
-        if current_node.data > data_part
+        if current_node.data > data
           if current_node.prev_pointer.nil?
-            current_node.prev_pointer = Node.new(data_part)
-            $file_handler.add(data_part)
+            current_node.prev_pointer = Node.new(data)
+            $file_handler.add(data)
             break
           else
             current_node = current_node.prev_pointer
@@ -152,6 +152,7 @@ class BST
   end
 
   def delete_node(root_node = @root_node, delete_element)
+    $file_handler.delete?(delete_element)
     if root_node.nil?
       return root_node
     end
@@ -186,13 +187,14 @@ puts "Enter the file name you want to work with"
 file = gets.chomp
 if  File.exist?(file)
   open_file = File.open(file,"r+")
-  open_file.each_line do |iterator|
-    object.insert_node(iterator.to_i)
+  if !File.empty?(file)
+    open_file.each_line do |iterator|
+      object.insert_node(iterator.to_i)
+    end
   end
 else 
  open_file  =  File.new(file,"w+")
 end
-
 loop do
   puts "1.Insert\n2.Inorder\n3.Preorder\n4.Postorder\n5.Levelorder\n6.Search\n7.Max_Element\n"\
        "8.Min_Element\n9.Delete\n10.Print_All_Paths\n11.Quit\n"
@@ -236,8 +238,9 @@ loop do
     break
   end
 end
-
+File.delete(file)
+open_file=File.new(file,'w')
   $file_handler.each do|iterator|
     open_file.syswrite(iterator.to_s + "\n")
   end
-  open_file.close()
+open_file.close()
