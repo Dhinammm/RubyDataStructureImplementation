@@ -196,8 +196,8 @@ end
 loop do
   puts "1.Insert\n2.Inorder\n3.Preorder\n4.Postorder\n5.Levelorder\n6.Search\n7.Max_Element\n"\
        "8.Min_Element\n9.Delete\n10.Print_All_Paths\n11.Quit\n"
-  loop_var = gets.chomp.to_i
-  case loop_var
+  input = gets.chomp.to_i
+  case input
   when 1
     new_element = gets.chomp.to_i
     object.insert_node(new_element)
