@@ -14,6 +14,7 @@ class BST
       @root_node = Node.new(data)
     else
       current_node = @root_node
+      
       loop do
         if current_node.nil?
           current_node = Node.new(data)
@@ -43,8 +44,8 @@ class BST
           end
         end
         break
-
       end
+
     end
   end
 
@@ -215,7 +216,7 @@ if  File.exist?(file)
     end
   end
 else 
-  open_file  =  File.new(file, "w+")
+  open_file = File.new(file, "w+")
 end
 
 loop do
