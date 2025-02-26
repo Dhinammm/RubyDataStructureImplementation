@@ -8,19 +8,19 @@ class LinkedList
     @tail_node = nil
   end
 
-  def insert_end(data_part)
+  def insert_end(data)
     if @head_node.nil?
-      @head_node = Node.new(data_part)
+      @head_node = Node.new(data)
       @tail_node = @head_node
     else
-      @tail_node.next_pointer = Node.new(data_part)
+      @tail_node.next_pointer = Node.new(data)
       @tail_node.next_pointer.prev_pointer = @tail_node
       @tail_node = @tail_node.next_pointer
     end
   end
 
-  def insert_head(data_part)
-    new_node = Node.new(data_part)
+  def insert_head(data)
+    new_node = Node.new(data)
     if @head_node.nil?
       @head_node = new_node
       @tail_node = @head_node
@@ -31,17 +31,17 @@ class LinkedList
     end
   end
 
-  def insert_position(data_part,position)
+  def insert_position(data, position)
     current_node = @head_node
     if position == 1
       if !head_node.nil?
-        new_node = Node.new(data_part)
+        new_node = Node.new(data)
         new_node.next_pointer = @head_node 
         @head_node.prev_pointer = new_node
         @head_node = new_node
         return
       else
-        @head_node = Node.new(data_part)
+        @head_node = Node.new(data)
         return
       end
     end
@@ -56,9 +56,10 @@ class LinkedList
       end
     end
 
-    new_node = Node.new(data_part)
+    new_node = Node.new(data)
     new_node.next_pointer = current_node
     new_node.prev_pointer = current_node.prev_pointer
+
     if new_node.prev_pointer.nil?
       'Do nothing'
     else
@@ -84,10 +85,12 @@ class LinkedList
 
   def delete_end
     if @tail_node.nil?
-      puts 'hi'
+      return 
     else
       @tail_node = @tail_node.prev_pointer
-      @tail_node.next_pointer = nil
+      if !@tail_node.nil?
+        @tail_node.next_pointer = nil
+      end
     end
   end
 
