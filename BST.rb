@@ -20,6 +20,7 @@ class BST
           $file_handler.add(data)
           break
         end
+
         if current_node.data < data
           if current_node.next_pointer.nil?
             current_node.next_pointer = Node.new(data)
@@ -30,6 +31,7 @@ class BST
             next
           end
         end
+
         if current_node.data > data
           if current_node.prev_pointer.nil?
             current_node.prev_pointer = Node.new(data)
@@ -40,7 +42,8 @@ class BST
             next
           end
         end
-      break
+        break
+
       end
     end
   end
@@ -77,10 +80,13 @@ class BST
       puts "Tree is empty"
       return
     end
+
     max_node = @root_node
+
     while !max_node.next_pointer.nil?
       max_node = max_node.next_pointer
     end
+
     puts max_node.data
   end
 
@@ -89,37 +95,44 @@ class BST
       puts "Tree is empty"
       return
     end
+
     min_node = @root_node
+
     while !min_node.prev_pointer.nil?
       min_node = min_node.prev_pointer
     end
+
     puts min_node.data
   end
 
   def search_element(element)
-    search_node=@root_node
+    search_node = @root_node
     puts @root_node.data
-    if !search_node.nil? and search_node.data == element
+    if !search_node.nil? && search_node.data == element
       puts "Element exists"
       return
     end
+
     while !search_node.nil?
       if search_node.data < element
         search_node = search_node.next_pointer
       elsif  search_node.data > element
         search_node = search_node.prev_pointer
       end
+
       if search_node.data == element
         puts "Element exists"
         return
       end
     end
+
     puts "Element does not exist"
   end
 
   def levelorder_traversal
-    traverse_queue=Queue.new
+    traverse_queue = Queue.new
     traverse_queue.push(@root_node)
+    
     while !traverse_queue.empty?
       current_node = traverse_queue.pop
       if !current_node.nil?
@@ -127,6 +140,7 @@ class BST
         if !current_node.prev_pointer.nil?
          traverse_queue.push(current_node.prev_pointer)
         end
+
         if !current_node.next_pointer.nil?
          traverse_queue.push(current_node.next_pointer)
         end
@@ -135,17 +149,19 @@ class BST
   end    
 
   def print_paths(root_node, track_path = [])
-    duplicate = track_path.dup
     if root_node.nil?
       return
     end
+
+    duplicate = track_path.dup
     duplicate.append(root_node.data)
     print_paths(root_node.prev_pointer, duplicate)
     print_paths(root_node.next_pointer, duplicate)
-    if root_node.prev_pointer.nil? and root_node.next_pointer.nil?
-      duplicate.each do|iterator|
-      puts iterator
-    end
+    
+    if root_node.prev_pointer.nil? && root_node.next_pointer.nil?
+      duplicate.each do |iterator|
+        puts iterator
+      end
       duplicate = []
       puts "---"
     end
@@ -156,45 +172,52 @@ class BST
     if root_node.nil?
       return root_node
     end
+
     if root_node.data > delete_element
-      root_node.prev_pointer = delete_node(root_node.prev_pointer,delete_element)
+      root_node.prev_pointer = delete_node(root_node.prev_pointer, delete_element)
     elsif root_node.data < delete_element
-      root_node.next_pointer = delete_node(root_node.next_pointer,delete_element)
+      root_node.next_pointer = delete_node(root_node.next_pointer, delete_element)
     else
       if root_node.prev_pointer.nil?
         return root_node.next_pointer
       end
+
       if root_node.next_pointer.nil?
         return root_node.prev_pointer
       end
+
       successor_node = get_successor(root_node)
       root_node.data = successor_node.data
       root_node.next_pointer = delete_node(root_node.next_pointer, successor_node.data)
     end
+
     return root_node
   end
 
   def get_successor(root_node)
     root_node = root_node.next_pointer
-    while !root_node.nil? and !root_node.prev_pointer.nil?
+    while !root_node.nil? && !root_node.prev_pointer.nil?
       root_node = root_node.prev_pointer
     end
     return root_node
   end
 end
+
 object = BST.new()
 puts "Enter the file name you want to work with"
 file = gets.chomp
+
 if  File.exist?(file)
-  open_file = File.open(file,"r+")
+  open_file = File.open(file, "r+")
   if !File.empty?(file)
     open_file.each_line do |iterator|
       object.insert_node(iterator.to_i)
     end
   end
 else 
- open_file  =  File.new(file,"w+")
+  open_file  =  File.new(file, "w+")
 end
+
 loop do
   puts "1.Insert\n2.Inorder\n3.Preorder\n4.Postorder\n5.Levelorder\n6.Search\n7.Max_Element\n"\
        "8.Min_Element\n9.Delete\n10.Print_All_Paths\n11.Quit\n"
@@ -229,18 +252,21 @@ loop do
     puts "---"
   when 9
     del_node = gets.chomp.to_i
-    object.delete_node(object.root_node,del_node)
+    object.delete_node(object.root_node, del_node)
     puts "---"
   when 10
     object.print_paths(object.root_node)
     puts "---"
   when 11
     break
+  else
+    puts "Enter a valid input"
   end
 end
+
 File.delete(file)
-open_file=File.new(file,'w')
-  $file_handler.each do|iterator|
-    open_file.syswrite(iterator.to_s + "\n")
-  end
+open_file = File.new(file, 'w')
+$file_handler.each do |iterator|
+  open_file.syswrite(iterator.to_s + "\n")
+end
 open_file.close()
