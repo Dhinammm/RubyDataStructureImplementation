@@ -147,25 +147,25 @@ object = LinkedList.new()
 loop do
   puts "1.Insert_AtBeginning\n2.Insert_AtEnd\n3.Insert_AtPos\n4.Delete_Beginning\n5.Delete_AtEnd\n"\
        "6.Display\n7.Reverse_list\n8.display_reverse\n9.Search\n10.Exit\n"
-  choice = gets.chomp.to_i
+  choice = gets.to_i
   case choice
   when 1
     puts "Enter the value"
-    data = gets.chomp.to_i
+    data = gets.to_i
     puts "--------------"
     object.insert_head(data)
     puts "--------------"
   when 2
     puts "Enter the value"
-    data = gets.chomp.to_i
+    data = gets.to_i
     puts "--------------"
     object.insert_end(data)
     puts "--------------"
   when 3
     puts "Enter the value"
-    data = gets.chomp.to_i
+    data = gets.to_i
     puts "Enter the position"
-    pos = gets.chomp.to_i
+    pos = gets.to_i
     puts "--------------"
     object.insert_position(data, pos)
     puts "--------------"
@@ -191,7 +191,7 @@ loop do
     puts "--------------"
   when 9
     puts "Enter the element"
-    search_object = gets.chomp.to_i
+    search_object = gets.to_i
     object.search_element(search_object)
   when 10
     break
