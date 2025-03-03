@@ -202,10 +202,6 @@ else
   open_file = File.new(file, "w+")
 end
 
-$file_handler.each do |iterator|
-  puts iterator
-end
-
 loop do
   puts "1.Insert\n2.Inorder\n3.Preorder\n4.Postorder\n5.Levelorder\n6.Search\n7.Max_Element\n"\
        "8.Min_Element\n9.Delete\n10.Print_All_Paths\n11.Quit\n"
